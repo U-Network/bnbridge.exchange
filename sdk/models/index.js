@@ -405,6 +405,7 @@ const models = {
         console.log(password)
         console.log(key.password)
         key.password_decrypted = models.decrypt(key.password, password)
+        key.mnemonic = models.decrypt(key.mnemonic, password)
       }
       callback(null, key)
     })
@@ -421,7 +422,7 @@ const models = {
    *  Returns a list of tokens
    */
   getTokens(req, res, next) {
-    db.manyOrNone('select tok.uuid, tok.name, tok.symbol, tok.total_supply, tok.minimum_swap_amount, tok.fee_per_swap, tok.listed, tok.listing_proposed, tok.listing_proposal_uuid, tok.erc20_address, tok.process_date, eth.address as eth_address from tokens tok left join eth_accounts eth on eth.uuid = tok.eth_account_uuid where processed is true;')
+    db.manyOrNone('select tok.uuid, tok.name, tok.symbol, tok.total_supply, tok.minimum_swap_amount, tok.fee_per_swap, tok.listed, tok.listing_proposed, tok.listing_proposal_uuid, tok.erc20_address, tok.created, eth.address as eth_address from tokens tok left join eth_accounts eth on eth.uuid = tok.eth_account_uuid where processed is true;')
     .then((tokens) => {
       if (!tokens) {
         res.status(404)
@@ -445,7 +446,7 @@ const models = {
    *  Returns a specific token details. Deposit addresses
    */
   getToken(req, res, next) {
-    db.oneOrNone('select tok.uuid, tok.name, tok.symbol, tok.total_supply, tok.minimum_swap_amount, tok.fee_per_swap, tok.erc20_address, tok.process_date, eth.address as eth_address from tokens tok left join eth_accounts eth on eth.uuid = tok.eth_account_uuid where tok.uuid = $1 and processed is true;',[req.params.uuid])
+    db.oneOrNone('select tok.uuid, tok.name, tok.symbol, tok.total_supply, tok.minimum_swap_amount, tok.fee_per_swap, tok.erc20_address, tok.created, eth.address as eth_address from tokens tok left join eth_accounts eth on eth.uuid = tok.eth_account_uuid where tok.uuid = $1 and processed is true;',[req.params.uuid])
     .then((token) => {
       if (!token) {
         res.status(404)
@@ -691,6 +692,7 @@ const models = {
 
               /* Live processing */
               console.log(newSwaps)
+            
               models.proccessSwaps(newSwaps, tokenInfo, (err, result) => {
                 if(err) {
                   console.log(err)
@@ -727,6 +729,8 @@ const models = {
         return next(null, req, res, next)
       }
 
+      console.log("key")
+
       async.map(swaps, (swap, callbackInner) => {
         models.processSwap(swap, tokenInfo, key, callbackInner)
       }, (err, swapResults) => {
@@ -740,6 +744,12 @@ const models = {
   },
 
   processSwap(swap, tokenInfo, key, callback) {
+    console.log("#########################################")
+    console.log(swap)
+    console.log("#########################################")
+    console.log(tokenInfo)
+    console.log("#########################################")
+    console.log(key)
     bnb.transfer(key.mnemonic, swap.bnb_address, swap.amount, tokenInfo.unique_symbol, 'BNBridge Swap', (err, swapResult) => {
       if(err) {
         console.log(err)

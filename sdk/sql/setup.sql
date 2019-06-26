@@ -5,6 +5,7 @@ create table eth_accounts (
   uuid char(36) primary key,
   private_key varchar(128),
   address varchar(64),
+  encr_key varchar(64),
   created timestamp
 );
 
@@ -16,7 +17,8 @@ create table bnb_accounts (
   seed_phrase varchar(512),
   address varchar(64),
   key_name varchar(64),
-  password varchar(32),
+  password varchar(128),
+  encr_key varchar(128),
   created timestamp
 );
 
@@ -81,6 +83,7 @@ create table client_accounts (
   uuid char(36) primary key,
 	bnb_address varchar(64),
 	client_eth_account_uuid char(36),
+  encr_key varchar(512),
   created timestamp
 );
 
@@ -88,7 +91,8 @@ create table client_accounts (
 drop table if exists client_eth_accounts;
 create table client_eth_accounts (
   uuid char(36) primary key,
-  private_key varchar(128),
+  private_key varchar(512),
   address varchar(64),
+  encr_key varchar(512),
   created timestamp
 );
