@@ -91,7 +91,7 @@ create table client_accounts (
 drop table if exists client_eth_accounts;
 create table client_eth_accounts (
   uuid char(36) primary key,
-  private_key varchar(128),
+  private_key varchar(256),
   address varchar(64),
   encr_key varchar(128),
   created timestamp
