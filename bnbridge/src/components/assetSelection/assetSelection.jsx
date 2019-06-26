@@ -53,7 +53,7 @@ class AssetSelection extends Component {
       }
     })
 
-    let selectedToken = null
+    let selectedToken = ""
 
     if(window.location.pathname !== "" && window.location.pathname !== "/") {
       const symbolToken = window.location.pathname.substr(1)

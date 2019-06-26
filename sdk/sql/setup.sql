@@ -5,7 +5,7 @@ create table eth_accounts (
   uuid char(36) primary key,
   private_key varchar(128),
   address varchar(64),
-  encr_key varchar(64),
+  encr_key varchar(128),
   created timestamp
 );
 
@@ -91,8 +91,8 @@ create table client_accounts (
 drop table if exists client_eth_accounts;
 create table client_eth_accounts (
   uuid char(36) primary key,
-  private_key varchar(512),
+  private_key varchar(128),
   address varchar(64),
-  encr_key varchar(512),
+  encr_key varchar(128),
   created timestamp
 );
