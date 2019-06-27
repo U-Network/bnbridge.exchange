@@ -362,9 +362,9 @@ class Swap extends Component {
           }
           {
             !bnbBalances &&
-            <Typography className={ classes.createAccount } onClick={ onCreateAccount }>
+            <a className={ classes.createAccount } target="_blank"  href="https://www.binance.org/en/create">
               Don't have an account? Create one
-            </Typography>
+            </a>
           }
         </Grid>
       </React.Fragment>

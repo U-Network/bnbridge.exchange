@@ -15,14 +15,14 @@ const eth = {
     myContract.getPastEvents('Transfer', {
       fromBlock: 0,
       toBlock: 'latest',
-      filter: { _to: depositAddress }
+      filter: { to: depositAddress }
     })
     .then((events) => {
       const returnEvents = events.map((event) => {
         return {
-          from: event.returnValues._from,
-          to: event.returnValues._to,
-          amount: parseFloat(web3.utils.fromWei(event.returnValues._value._hex, 'ether')),
+          from: event.returnValues.from,
+          to: event.returnValues.to,
+          amount: parseFloat(web3.utils.fromWei(event.returnValues.value._hex, 'ether')),
           transactionHash: event.transactionHash
         }
       })

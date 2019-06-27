@@ -658,6 +658,10 @@ const models = {
             const ethTransactions = data[0]
             const swaps = data[1]
 
+            // console.log(ethTransactions)
+
+            // console.log(swaps)
+
             if(!ethTransactions || ethTransactions.length === 0) {
               res.status(400)
               res.body = { 'status': 400, 'success': false, 'result': 'Unable to find a deposit' }
@@ -676,6 +680,17 @@ const models = {
               }
             })
 
+            // console.log(newTransactions)
+            let accmulatedBalance = newTransactions.map(ethTransaction => ethTransaction.amount).reduce((prev, curr) => prev + curr, 0);
+
+            console.log(accmulatedBalance)
+            if(accmulatedBalance < tokenInfo.minimum_swap_amount){
+              res.status(400)
+              res.body = { 'status': 400, 'success': false, 'result': 'Deposits are less than minimum swap amount' }
+              return next(null, req, res, next)
+            }
+            
+
             if(newTransactions.length === 0) {
               res.status(400)
               res.body = { 'status': 400, 'success': false, 'result': 'Unable to find any new deposits' }
@@ -691,7 +706,7 @@ const models = {
               }
 
               /* Live processing */
-              console.log(newSwaps)
+              // console.log(newSwaps)
             
               models.proccessSwaps(newSwaps, tokenInfo, (err, result) => {
                 if(err) {
@@ -729,8 +744,27 @@ const models = {
         return next(null, req, res, next)
       }
 
-      console.log("key")
+    // let res = []
+    
+    // let sequence = Promise.resolve();
 
+    // swaps.forEach((swap) => {
+
+    //   sequence = sequence.then(() => {
+    //     return models.processSwap(swap, tokenInfo, key, (err, swapResult) => {
+    //       console.log(swapResult)
+    //       if(err) {
+    //         return callback(err)
+    //       }
+    //       res.push(swapResult)
+          
+    //     })
+    //   })
+    // })
+
+    // console.log(res)
+
+    
       async.map(swaps, (swap, callbackInner) => {
         models.processSwap(swap, tokenInfo, key, callbackInner)
       }, (err, swapResults) => {
@@ -738,18 +772,21 @@ const models = {
           return callback(err)
         }
 
+        console.log(swapResults)
+
         callback(err, swapResults)
       })
+
     })
   },
 
   processSwap(swap, tokenInfo, key, callback) {
-    console.log("#########################################")
-    console.log(swap)
-    console.log("#########################################")
-    console.log(tokenInfo)
-    console.log("#########################################")
-    console.log(key)
+    // console.log("#########################################")
+    // console.log(swap)
+    // console.log("#########################################")
+    // console.log(tokenInfo)
+    // console.log("#########################################")
+    // console.log(key)
     bnb.transfer(key.mnemonic, swap.bnb_address, swap.amount, tokenInfo.unique_symbol, 'BNBridge Swap', (err, swapResult) => {
       if(err) {
         console.log(err)
