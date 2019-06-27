@@ -18,15 +18,15 @@ API used to interact with the CLI utility, Binance javascript SDK and Web3.js to
 
 
 ### Installation
-    git clone the repo
-
+    git clone <repo>
     cd ./sdk
-
     npm install
-    run ./sql/setup.sql to instantiate the DB.
+    
+    set `DBUSER`, `DBNAME`, `DBPASSWORD` to environmental variables
+    run bash setup.sh to instantiate the DB.
+    
     update ./config/index.js with
-        - databse connection details.
-        - Binance cli path.
+        - databse connection details (`DBUSER`, `DBNAME`, `DBPASSWORD`).
         - Binance connection details for mainnet/testnet.
         - Ethereum connection details for mainnet/testnet.
     node ./api.bnbridge.exchange.js
