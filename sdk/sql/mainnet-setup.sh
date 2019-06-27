@@ -44,10 +44,12 @@ sudo -u $DBUSER psql "postgresql://$DBUSER:$DBPASSWORD@localhost/$DBNAME" -f ${P
 
 
 # Gen encryption keys and encrypted password
-var=$(MNENOMIC=$MNEMONIC KEY=$KEY CLIPASSWORD=$CLIPASSWORD node keygen.js)
-encr_seed=$(echo $var | cut -d, -f1)
-encr_clipassword=$(echo $var | cut -d, -f2)
-encr_key=$(echo $var | cut -d, -f3)
+var=$(ISTESTNET=0 MNENOMIC=$MNEMONIC KEY=$KEY CLIPASSWORD=$CLIPASSWORD node keygen.js)
+pubKey=$(echo $var | cut -d, -f1)
+address=$(echo $var | cut -d, -f2)
+encr_seed=$(echo $var | cut -d, -f3)
+encr_clipassword=$(echo $var | cut -d, -f4)
+encr_key=$(echo $var | cut -d, -f5)
 # echo "encr_seed = $encr_seed"
 # echo "encr_clipassword = $encr_clipassword"
 # echo "encr_key = $encr_key"
@@ -56,10 +58,10 @@ encr_key=$(echo $var | cut -d, -f3)
 # Polulate bnb_accounts and tokens table
 sudo -u $DBUSER psql "postgresql://$DBUSER:$DBPASSWORD@localhost/$DBNAME" -c "
   INSERT INTO bnb_accounts VALUES (
-    '5a89c14e-5385-4e4e-93c0-270c54ffd49e',
-    'bnbp1addwnpepq0v8nxa4cqf2fmllj0g93tgpg0w9gjr3axl5p45dptwm9khfd6q86mx9mcu',
+    'ca32432b-e5a9-4bae-acb0-3f3492c69754',
+    '$pubKey',
     '$encr_seed',
-    'tbnb1e9vfddc4rmtt8ymzm6nr7nh9grndn425lk6n3e',
+    '$address',
     'bnbcli-keyname-optional',
     '$encr_clipassword',
     '$encr_key',
@@ -69,20 +71,20 @@ sudo -u $DBUSER psql "postgresql://$DBUSER:$DBPASSWORD@localhost/$DBNAME" -c "
 
 sudo -u $DBUSER psql "postgresql://$DBUSER:$DBPASSWORD@localhost/$DBNAME" -c "
   INSERT INTO tokens VALUES (
-    'd63380b5-4873-46a4-b74e-3afa72d41cc5',
-    'DOS NETWORK BEP2 Testnet',
+    '3100c73f-2e54-4b19-ade5-7d58805fcac6',
+    'DOS NETWORK BEP2',
     'DOS',
-    'DOS1-55F',
+    'DOS-120',
     1000000000,
-    '0x214e79c85744CD2eBBc64dDc0047131496871bEe',
+    '0x70861e862E1Ac0C96f853C8231826e469eAd37B1',
     true,
     100,
     0,
-    'eth-uuid-optional',
-    '5a89c14e-5385-4e4e-93c0-270c54ffd49e',
+    'eth-uuid-optional-mainnet',
+    'ca32432b-e5a9-4bae-acb0-3f3492c69754',
     true,
     true,
-    'listing-proposal-uuid-optional',
+    'listing-proposal-uuid-mainnet',
     true,
     now()
   );

@@ -23,7 +23,7 @@ API used to interact with the CLI utility, Binance javascript SDK and Web3.js to
     npm install
     
     set (`DBUSER`, `DBNAME`, `DBPASSWORD`, `KEY`, `CLIPASSWORD`, `MNEMONIC`) to environment variables.
-    run `bash setup.sh` to instantiate the DB.
+    run `bash <testnet/mainnet>-setup.sh` to instantiate the DB.
     unset environment variables, specifically secrets and clear bash history.
 
 
