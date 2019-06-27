@@ -28,7 +28,7 @@ create table tokens (
   uuid char(36) primary key,
   name varchar(64),
   symbol varchar(10),
-	unique_symbol varchar(32),
+  unique_symbol varchar(32),
   total_supply varchar(64),
   erc20_address varchar(64),
   mintable boolean,
@@ -63,15 +63,15 @@ drop table if exists list_proposals;
 create table list_proposals (
   uuid char(36) primary key,
   token_uuid char(36),
-	unique_symbol varchar(32),
-	title varchar(128),
-	description varchar(128),
+  unique_symbol varchar(32),
+  title varchar(128),
+  description varchar(128),
   initial_price varchar(32),
   expiry_time bigint,
   voting_period bigint,
   submitted boolean,
   transaction_hash varchar(64),
-	proposal_id bigint,
+  proposal_id bigint,
   processed boolean,
   voting_status varchar(32),
   created timestamp
@@ -81,8 +81,8 @@ create table list_proposals (
 drop table if exists client_accounts;
 create table client_accounts (
   uuid char(36) primary key,
-	bnb_address varchar(64),
-	client_eth_account_uuid char(36),
+  bnb_address varchar(64),
+  client_eth_account_uuid char(36),
   encr_key varchar(512),
   created timestamp
 );
@@ -91,7 +91,7 @@ create table client_accounts (
 drop table if exists client_eth_accounts;
 create table client_eth_accounts (
   uuid char(36) primary key,
-  private_key varchar(256),
+  private_key varchar(128),
   address varchar(64),
   encr_key varchar(128),
   created timestamp
