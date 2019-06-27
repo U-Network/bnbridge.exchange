@@ -15,6 +15,22 @@ if [[ -z $DBNAME ]]; then
   exit
 fi
 
+if [[ -z $KEY ]]; then
+  echo "Export KEY to environment variable"
+  exit
+fi
+
+if [[ -z $MNEMONIC ]]; then
+  echo "Export MNEMONIC to environment variable"
+  exit
+fi
+
+if [[ -z $CLIPASSWORD ]]; then
+  echo "Export CLIPASSWORD to environment variable"
+  exit
+fi
+
+set +o history
 
 sudo apt-get update
 sudo apt-get install postgresql postgresql-contrib
@@ -26,5 +42,58 @@ sudo -u $DBUSER createdb -O $DBUSER $DBNAME
 # Creating tables from setup.sql
 sudo -u $DBUSER psql "postgresql://$DBUSER:$DBPASSWORD@localhost/$DBNAME" -f ${PWD}/setup.sql
 
-# Populating DB
+
+# Gen encryption keys and encrypted password
+var=$(MNENOMIC=$MNEMONIC KEY=$KEY CLIPASSWORD=$CLIPASSWORD node keygen.js)
+encr_seed=$(echo $var | cut -d, -f1)
+encr_clipassword=$(echo $var | cut -d, -f2)
+encr_key=$(echo $var | cut -d, -f3)
+# echo "encr_seed = $encr_seed"
+# echo "encr_clipassword = $encr_clipassword"
+# echo "encr_key = $encr_key"
+
+
+# Polulate bnb_accounts and tokens table
+sudo -u $DBUSER psql "postgresql://$DBUSER:$DBPASSWORD@localhost/$DBNAME" -c "
+  INSERT INTO bnb_accounts VALUES (
+    '5a89c14e-5385-4e4e-93c0-270c54ffd49e',
+    'bnbp1addwnpepq0v8nxa4cqf2fmllj0g93tgpg0w9gjr3axl5p45dptwm9khfd6q86mx9mcu',
+    '$encr_seed',
+    'tbnb1e9vfddc4rmtt8ymzm6nr7nh9grndn425lk6n3e',
+    'bnbcli-keyname-optional',
+    '$encr_clipassword',
+    '$encr_key',
+    now()
+  );
+"
+
+sudo -u $DBUSER psql "postgresql://$DBUSER:$DBPASSWORD@localhost/$DBNAME" -c "
+  INSERT INTO tokens VALUES (
+    'd63380b5-4873-46a4-b74e-3afa72d41cc5',
+    'DOS NETWORK BEP2 Testnet',
+    'DOS',
+    'DOS1-55F',
+    1000000000,
+    '0x214e79c85744CD2eBBc64dDc0047131496871bEe',
+    true,
+    100,
+    0,
+    'eth-uuid-optional',
+    '5a89c14e-5385-4e4e-93c0-270c54ffd49e',
+    true,
+    true,
+    'listing-proposal-uuid-optional',
+    true,
+    now()
+  );
+"
+
+
+set -o history
+
+# You should keep your own copy of the following secrets. unset to ensure safety.
+# You might also need to clear bash history to avoid leaking secrets.
+unset DBPASSWORD
+unset KEY
+unset MNEMONIC
 

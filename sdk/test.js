@@ -24,6 +24,8 @@ function genPassword() {
 
 
 const keyPassword = genPassword()
+console.log("keyPassword: ", keyPassword);
+
 
 const dbPassword = bip39.generateMnemonic()
 

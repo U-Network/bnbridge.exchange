@@ -14,10 +14,13 @@ drop table if exists bnb_accounts;
 create table bnb_accounts (
   uuid char(36) primary key,
   public_key varchar(128),
+  -- Inappropriate name, raw mnemonic of a bnb account encrypted by key `(KEY:dbPassword)`
   seed_phrase varchar(512),
   address varchar(64),
   key_name varchar(64),
+  -- Inappropriate name, raw password used to operate with bnbcli encrypted by key `(KEY:dbPassword)`
   password varchar(128),
+  -- dbPassword, a bip39 mnemonic
   encr_key varchar(128),
   created timestamp
 );
@@ -91,8 +94,10 @@ create table client_accounts (
 drop table if exists client_eth_accounts;
 create table client_eth_accounts (
   uuid char(36) primary key,
+  -- Inappropriate name, encrypted eth private key using `(KEY:dbPassword)` as encryption key
   private_key varchar(256),
   address varchar(64),
+  -- dbPassword, a newly generated bip39 mnemonic for each created eth account
   encr_key varchar(128),
   created timestamp
 );

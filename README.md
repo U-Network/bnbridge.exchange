@@ -22,11 +22,13 @@ API used to interact with the CLI utility, Binance javascript SDK and Web3.js to
     cd ./sdk
     npm install
     
-    set `DBUSER`, `DBNAME`, `DBPASSWORD` to environmental variables
-    run bash setup.sh to instantiate the DB.
-    
+    set (`DBUSER`, `DBNAME`, `DBPASSWORD`, `KEY`, `CLIPASSWORD`, `MNEMONIC`) to environment variables.
+    run `bash setup.sh` to instantiate the DB.
+    unset environment variables, specifically secrets and clear bash history.
+
+
     update ./config/index.js with
-        - databse connection details (`DBUSER`, `DBNAME`, `DBPASSWORD`).
+        - databse connection details (the same value as `DBUSER`, `DBNAME`, `DBPASSWORD`).
         - Binance connection details for mainnet/testnet.
         - Ethereum connection details for mainnet/testnet.
     node ./api.bnbridge.exchange.js
