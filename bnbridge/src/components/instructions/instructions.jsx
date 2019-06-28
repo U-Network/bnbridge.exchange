@@ -118,10 +118,7 @@ class Instructions extends Component {
           </div>
           <div className={ classes.root } >
             <Typography className={ classes.header }>Swap details:</Typography>
-              <Grid
-                container
-                justify="flex-start"
-                alignItems="flex-end">
+              <Grid item xs={12} align='left'>
                 <li><Typography className={ classes.action }>Minimum swap amount: 100 DOS</Typography></li>
                 <li><Typography className={ classes.action }>Swap fee: 5 DOS</Typography></li>
                 {/* { this.renderFees() } */}
