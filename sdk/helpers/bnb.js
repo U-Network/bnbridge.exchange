@@ -153,16 +153,13 @@ const bnb = {
     const privateFrom = BnbApiClient.crypto.getPrivateKeyFromMnemonic(mnemonic);
     const publicFrom = BnbApiClient.crypto.getAddressFromPrivateKey(privateFrom);
 
-    const sequenceURL = `${config.api}api/v1/account/${publicFrom}/sequence`;
-
     const bnbClient = new BnbApiClient(config.api);
-    bnbClient.setPrivateKey(privateFrom);
 
-    bnbClient.initChain().then(_ => {
-      httpClient.get(sequenceURL)
-      .then((res) => {
+    bnbClient.setPrivateKey(privateFrom).then(_ => {
+      bnbClient.initChain().then(_ => {
         // const sequence = res.data.sequence || 0
-        // console.log(sequence)
+        console.log((new Date()).getTime())
+        console.log("seq: " + sequence)
         return bnbClient.transfer(publicFrom, publicTo, amount, asset, message, sequence)
       })
       .then((result) => {
@@ -176,7 +173,6 @@ const bnb = {
         callback(error)
       });
     })
-
 
   },
 

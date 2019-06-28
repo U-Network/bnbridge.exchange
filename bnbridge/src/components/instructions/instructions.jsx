@@ -22,7 +22,7 @@ const styles = theme => ({
   },
   header: {
     fontSize: '2.4rem',
-    color: colors.yellow,
+    color: colors.grey,
     marginBottom: '24px',
     fontWeight: 400,
     fontFamily: ['Source Sans Pro', 'sans-serif'].join(","),
@@ -64,6 +64,7 @@ class Instructions extends Component {
 
   feesUpdated = () => {
     const fees = store.getStore('fees')
+    console.log(fees)
 
     let feesDisplay = fees.map((fee) => {
       let description = ""
@@ -112,18 +113,18 @@ class Instructions extends Component {
         alignItems="flex-end">
         <Grid item xs={12} align='left'>
           <div style={{"margin-right":"50px"}} className={ classes.root } >
-            <Typography className={ classes.header }>With bnbridge you can:</Typography>
-            <li><Typography className={ classes.action }>Swap ERC20 to BEP2 compatible tokens</Typography></li>
-            <li><Typography className={ classes.action }>Launch BEP2 assets</Typography></li>
-            <li><Typography className={ classes.action }>List tokens on Binance DEX</Typography></li>
+            <Typography className={ classes.header }>DOS Token Bridge</Typography>
+            <li><Typography className={ classes.action }>Swap DOS ERC20 to DOS BEP2 token</Typography></li>
           </div>
           <div className={ classes.root } >
-            <Typography className={ classes.header }>Bnbridge fees:</Typography>
+            <Typography className={ classes.header }>Swap details:</Typography>
               <Grid
                 container
                 justify="flex-start"
                 alignItems="flex-end">
-                { this.renderFees() }
+                <li><Typography className={ classes.action }>Minimum swap amount: 100 DOS</Typography></li>
+                <li><Typography className={ classes.action }>Swap fee: 5 DOS</Typography></li>
+                {/* { this.renderFees() } */}
             </Grid>
           </div>
         </Grid>

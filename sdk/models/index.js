@@ -425,7 +425,7 @@ const models = {
    *  Returns a list of tokens
    */
   getTokens(req, res, next) {
-    db.manyOrNone('select tok.uuid, tok.name, tok.symbol, tok.total_supply, tok.minimum_swap_amount, tok.fee_per_swap, tok.listed, tok.listing_proposed, tok.listing_proposal_uuid, tok.erc20_address, tok.created, eth.address as eth_address from tokens tok left join eth_accounts eth on eth.uuid = tok.eth_account_uuid where processed is true;')
+    db.manyOrNone('select tok.uuid, tok.name, tok.symbol, tok.total_supply, tok.minimum_swap_amount, tok.fee_per_swap, tok.listed, tok.listing_proposed, tok.listing_proposal_uuid, tok.erc20_address, tok.created, eth.address as eth_address from tokens tok left join eth_accounts eth on eth.uuid = tok.eth_account_uuid;')
     .then((tokens) => {
       if (!tokens) {
         res.status(404)
@@ -449,7 +449,7 @@ const models = {
    *  Returns a specific token details. Deposit addresses
    */
   getToken(req, res, next) {
-    db.oneOrNone('select tok.uuid, tok.name, tok.symbol, tok.total_supply, tok.minimum_swap_amount, tok.fee_per_swap, tok.erc20_address, tok.created, eth.address as eth_address from tokens tok left join eth_accounts eth on eth.uuid = tok.eth_account_uuid where tok.uuid = $1 and processed is true;',[req.params.uuid])
+    db.oneOrNone('select tok.uuid, tok.name, tok.symbol, tok.total_supply, tok.minimum_swap_amount, tok.fee_per_swap, tok.erc20_address, tok.created, eth.address as eth_address from tokens tok left join eth_accounts eth on eth.uuid = tok.eth_account_uuid where tok.uuid = $1;',[req.params.uuid])
     .then((token) => {
       if (!token) {
         res.status(404)
@@ -752,18 +752,17 @@ const models = {
     const sequenceURL = `${config.api}api/v1/account/${publicFrom}/sequence`;
     
     let seq = (await httpClient.get(sequenceURL)).data.sequence
-    // console.log(++res)
     
-    // async.map(swaps, (swap, callbackInner) => {
-    //   models.processSwap(swap, tokenInfo, key, ++res, callbackInner)
-    // }, (err, swapResults) => {
-    //   if(err) {
-    //     return callback(err)
-    //   }
-    //   callback(err, swapResults)
-    // })
+    async.map(swaps, (swap, callbackInner) => {
+      models.processSwap(swap, tokenInfo, key, seq++, callbackInner)
+    }, (err, swapResults) => {
+      if(err) {
+        return callback(err)
+      }
+      callback(err, swapResults)
+    })
 
-    let res = []
+    // let res = []
     
     // let sequence = Promise.resolve();
 
@@ -779,36 +778,23 @@ const models = {
     //   })
     // })
 
-    async function queue(arr) {
-      var sequence = Promise.resolve();
+    // async function queue(arr) {
+    //   var sequence = Promise.resolve();
 
-     return arr.forEach(item => {
-        sequence = sequence.then(_ => {
-          return models.processSwap(item, tokenInfo, key, seq++, (err, swapResult) => {
-            res.push(swapResult)
-            return res
-          })
-        })
-      })
+    //  return arr.forEach(item => {
+    //     sequence = sequence.then(_ => {
+    //       return models.processSwap(item, tokenInfo, key, seq++, (err, swapResult) => {
+    //         res.push(swapResult)
+    //         return res
+    //       })
+    //     })
+    //   })
+    // }
 
-      // let res = []
-      // for (let item of arr) {
-      //   let res = await return models.processSwap(item, tokenInfo, key, seq++, (err, swapResult) => {
-      //     res.push(swapResult)
-          
-      //   })
-
-      
-      
-    }
-
-    queue(swaps).then(res => {
-      console.log(res)
-    })
-
-    // console.log(res)
-    // callback(err, res)
-
+    // queue(swaps).then(_ => {
+    //   callback(err, res)
+    // })
+    
     })
   },
 
