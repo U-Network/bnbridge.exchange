@@ -765,24 +765,49 @@ const models = {
 
     let res = []
     
-    let sequence = Promise.resolve();
+    // let sequence = Promise.resolve();
 
-    swaps.forEach((swap) => {
+    // swaps.forEach((swap) => {
+    //   sequence = sequence.then(_ => {
+    //     return models.processSwap(swap, tokenInfo, key, seq++, (err, swapResult) => {
+    //       // console.log(swapResult)
+    //       if(err) {
+    //          console.log(err)
+    //       }
+    //       return res.push(swapResult)
+    //     })
+    //   })
+    // })
 
-      sequence = sequence.then(_ => {
-        return models.processSwap(swap, tokenInfo, key, seq++, (err, swapResult) => {
-          // console.log(swapResult)
-          if(err) {
-             console.log(err)
-          }
-          return res.push(swapResult)
+    async function queue(arr) {
+      var sequence = Promise.resolve();
+
+     return arr.forEach(item => {
+        sequence = sequence.then(_ => {
+          return models.processSwap(item, tokenInfo, key, seq++, (err, swapResult) => {
+            res.push(swapResult)
+            return res
+          })
         })
       })
+
+      // let res = []
+      // for (let item of arr) {
+      //   let res = await return models.processSwap(item, tokenInfo, key, seq++, (err, swapResult) => {
+      //     res.push(swapResult)
+          
+      //   })
+
+      
+      
+    }
+
+    queue(swaps).then(res => {
+      console.log(res)
     })
 
-    
-    console.log(res)
-    callback(err, res)
+    // console.log(res)
+    // callback(err, res)
 
     })
   },
@@ -799,7 +824,6 @@ const models = {
 
           return callback(err)
         })
-
       }
 
       if(swapResult && swapResult.result && swapResult.result.length > 0) {
