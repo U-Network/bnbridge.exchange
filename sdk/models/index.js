@@ -9,6 +9,9 @@ const sha256 = require('sha256');
 const bip39 = require('bip39');
 const algorithm = 'aes-256-ctr';
 const KEY = 'witness canyon foot sing song tray task defense float bottom town obvious faint globe door tonight alpha battle purse jazz flag author choose whisper';
+const axios = require('axios');
+const BnbApiClient = require('@binance-chain/javascript-sdk');
+const httpClient = axios.create({ baseURL: config.api });
 
 const models = {
 
@@ -736,7 +739,7 @@ const models = {
 
   proccessSwaps(swaps, tokenInfo, callback) {
 
-    models.getKey(tokenInfo.bnb_address, (err, key) => {
+    models.getKey(tokenInfo.bnb_address, async (err, key) => {
       if(err || !key) {
         console.log(err)
         res.status(500)
@@ -744,50 +747,48 @@ const models = {
         return next(null, req, res, next)
       }
 
-    // let res = []
+    const privateFrom = BnbApiClient.crypto.getPrivateKeyFromMnemonic(key.mnemonic);
+    const publicFrom = BnbApiClient.crypto.getAddressFromPrivateKey(privateFrom);
+    const sequenceURL = `${config.api}api/v1/account/${publicFrom}/sequence`;
     
-    // let sequence = Promise.resolve();
-
-    // swaps.forEach((swap) => {
-
-    //   sequence = sequence.then(() => {
-    //     return models.processSwap(swap, tokenInfo, key, (err, swapResult) => {
-    //       console.log(swapResult)
-    //       if(err) {
-    //         return callback(err)
-    //       }
-    //       res.push(swapResult)
-          
-    //     })
-    //   })
+    let seq = (await httpClient.get(sequenceURL)).data.sequence
+    // console.log(++res)
+    
+    // async.map(swaps, (swap, callbackInner) => {
+    //   models.processSwap(swap, tokenInfo, key, ++res, callbackInner)
+    // }, (err, swapResults) => {
+    //   if(err) {
+    //     return callback(err)
+    //   }
+    //   callback(err, swapResults)
     // })
 
-    // console.log(res)
+    let res = []
+    
+    let sequence = Promise.resolve();
+
+    swaps.forEach((swap) => {
+
+      sequence = sequence.then(_ => {
+        return models.processSwap(swap, tokenInfo, key, seq++, (err, swapResult) => {
+          // console.log(swapResult)
+          if(err) {
+             console.log(err)
+          }
+          return res.push(swapResult)
+        })
+      })
+    })
 
     
-      async.map(swaps, (swap, callbackInner) => {
-        models.processSwap(swap, tokenInfo, key, callbackInner)
-      }, (err, swapResults) => {
-        if(err) {
-          return callback(err)
-        }
-
-        console.log(swapResults)
-
-        callback(err, swapResults)
-      })
+    console.log(res)
+    callback(err, res)
 
     })
   },
 
-  processSwap(swap, tokenInfo, key, callback) {
-    // console.log("#########################################")
-    // console.log(swap)
-    // console.log("#########################################")
-    // console.log(tokenInfo)
-    // console.log("#########################################")
-    // console.log(key)
-    bnb.transfer(key.mnemonic, swap.bnb_address, swap.amount, tokenInfo.unique_symbol, 'BNBridge Swap', (err, swapResult) => {
+  processSwap(swap, tokenInfo, key, seq, callback) {
+    bnb.transfer(key.mnemonic, swap.bnb_address, swap.amount, tokenInfo.unique_symbol, 'BNBridge Swap', seq, (err, swapResult) => {
       if(err) {
         console.log(err)
 
@@ -825,7 +826,7 @@ const models = {
     .catch(callback)
   },
 
-  updateWithTransferTransactionHash(uuid, hash,  callback) {
+  updateWithTransferTransactionHash(uuid, hash, callback) {
     db.none('update swaps set transfer_transaction_hash = $2 where uuid = $1;', [uuid, hash])
     .then(callback)
     .catch(callback)

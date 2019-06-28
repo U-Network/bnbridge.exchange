@@ -147,34 +147,37 @@ const bnb = {
     ptyProcess.write('./'+config.fileName+' token burn --amount '+amount+' --symbol '+symbol+' --from '+keyName+' --chain-id='+config.chainID+' --node='+config.nodeData+' --trust-node\r');
   },
 
-  transfer(mnemonic, publicTo, amount, asset, message, callback) {
-
+  transfer(mnemonic, publicTo, amount, asset, message, sequence, callback) {
     mnemonic = mnemonic.replace(/(\r\n|\n|\r)/gm, "");
 
     const privateFrom = BnbApiClient.crypto.getPrivateKeyFromMnemonic(mnemonic);
-    const publicFrom = BnbApiClient.crypto.getAddressFromPrivateKey(privateFrom, config.prefix);
+    const publicFrom = BnbApiClient.crypto.getAddressFromPrivateKey(privateFrom);
 
     const sequenceURL = `${config.api}api/v1/account/${publicFrom}/sequence`;
 
     const bnbClient = new BnbApiClient(config.api);
     bnbClient.setPrivateKey(privateFrom);
-    bnbClient.initChain();
 
-    httpClient.get(sequenceURL)
-    .then((res) => {
-      const sequence = res.data.sequence || 0
-      return bnbClient.transfer(publicFrom, publicTo, amount, asset, message, sequence)
+    bnbClient.initChain().then(_ => {
+      httpClient.get(sequenceURL)
+      .then((res) => {
+        // const sequence = res.data.sequence || 0
+        // console.log(sequence)
+        return bnbClient.transfer(publicFrom, publicTo, amount, asset, message, sequence)
+      })
+      .then((result) => {
+        if (result.status === 200) {
+          callback(null, result)
+        } else {
+          callback(result)
+        }
+      })
+      .catch((error) => {
+        callback(error)
+      });
     })
-    .then((result) => {
-      if (result.status === 200) {
-        callback(null, result)
-      } else {
-        callback(result)
-      }
-    })
-    .catch((error) => {
-      callback(error)
-    });
+
+
   },
 
   freeze(amount, symbol, keyName, callback) {
