@@ -15,7 +15,7 @@ const bnbridgeTheme =  {
     useNextVariants: true,
     h6: {
       fontFamily: ['Source Sans Pro','sans-serif'].join(","),
-      fontSize: '0.8rem',
+      fontSize: '1rem',
       color: colors.darkBlack,
       fontWeight: 600,
       marginBottom: '.5rem'
@@ -44,7 +44,7 @@ const bnbridgeTheme =  {
     },
     MuiButton: {
       label: {
-        fontSize: '0.7rem'
+        fontSize: '1rem'
       }
     },
     MuiTab: {

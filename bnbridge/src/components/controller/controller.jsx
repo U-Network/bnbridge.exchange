@@ -24,7 +24,7 @@ const store = Store.store
 
 const styles = theme => ({
   root: {
-    minHeight: '450px'
+    minHeight: '480px'
   },
   tabs: {
     marginTop: '24px',
@@ -144,7 +144,7 @@ class Controller extends Component {
     return (
       <React.Fragment>
         <Tabs value={tabValue} onChange={this.handleChange} className={ classes.tabs } variant="fullWidth" indicatorColor="primary" textColor="inherit">
-          <Tab label="Swap" />
+          {/* <Tab label="Swap" /> */}
           {/* <Tab label="List" />
           <Tab label="Issue" /> */}
         </Tabs>

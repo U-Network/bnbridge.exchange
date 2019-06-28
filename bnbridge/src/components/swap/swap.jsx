@@ -36,7 +36,7 @@ const styles = theme => ({
     maxWidth: '400px'
   },
   button: {
-    marginTop: '24px'
+    marginTop: '24px',
   },
   frame: {
     border: '1px solid #e1e1e1',
