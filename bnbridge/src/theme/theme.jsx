@@ -57,7 +57,7 @@ const bnbridgeTheme =  {
         fontWeight: 700,
       },
       selected: {
-        color: colors.yellow
+        color: colors.darkBlack
       },
       root: {
         borderBottom: "1px solid #dee2e6!important"
@@ -67,7 +67,7 @@ const bnbridgeTheme =  {
   },
   palette: {
     primary: {
-      main: colors.yellow
+      main: colors.darkBlack
     },
     secondary: {
       main: colors.lightBlack

@@ -151,7 +151,7 @@ const bnb = {
     mnemonic = mnemonic.replace(/(\r\n|\n|\r)/gm, "");
 
     const privateFrom = BnbApiClient.crypto.getPrivateKeyFromMnemonic(mnemonic);
-    const publicFrom = BnbApiClient.crypto.getAddressFromPrivateKey(privateFrom);
+    const addressFrom = BnbApiClient.crypto.getAddressFromPrivateKey(privateFrom);
 
     const bnbClient = new BnbApiClient(config.api);
 
@@ -160,7 +160,7 @@ const bnb = {
         // const sequence = res.data.sequence || 0
         console.log((new Date()).getTime())
         console.log("seq: " + sequence)
-        return bnbClient.transfer(publicFrom, publicTo, amount, asset, message, sequence)
+        return bnbClient.transfer(addressFrom, publicTo, amount, asset, message, sequence)
       })
       .then((result) => {
         if (result.status === 200) {

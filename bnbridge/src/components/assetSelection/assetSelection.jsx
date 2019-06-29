@@ -53,7 +53,11 @@ class AssetSelection extends Component {
       }
     })
 
-    let selectedToken = ""
+    let selectedToken = "";
+    if (tokens.length > 0) {
+      selectedToken = tokens[0].uuid;
+      this.props.onTokenSelected(selectedToken);
+    }
 
     if(window.location.pathname !== "" && window.location.pathname !== "/") {
       const symbolToken = window.location.pathname.substr(1)
