@@ -24,7 +24,8 @@ API used to interact with the CLI utility, Binance javascript SDK and Web3.js to
     
     set (`DBUSER`, `DBNAME`, `DBPASSWORD`, `KEY`, `CLIPASSWORD`, `MNEMONIC`) to environment variables.
     run `bash <testnet/mainnet>-setup.sh` to instantiate the DB.
-    unset environment variables, specifically secrets and clear bash history.
+    Keep secrets (`MNEMONIC`, `KEY`, `DBPASSWORD`) offline and to yourself.
+    unset environment variables, specifically secrets, and clear bash history.
 
 
     update ./config/index.js with

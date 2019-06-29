@@ -32,8 +32,8 @@ fi
 
 set +o history
 
-sudo apt-get update
-sudo apt-get install postgresql postgresql-contrib
+# sudo apt-get update
+# sudo apt-get install postgresql postgresql-contrib
 
 sudo adduser $DBUSER
 sudo -u postgres createuser --superuser $DBUSER
@@ -53,6 +53,8 @@ encr_key=$(echo $var | cut -d, -f5)
 # echo "encr_seed = $encr_seed"
 # echo "encr_clipassword = $encr_clipassword"
 # echo "encr_key = $encr_key"
+echo "pubKey = $pubKey"
+echo "address = $address"
 
 
 # Polulate bnb_accounts and tokens table
