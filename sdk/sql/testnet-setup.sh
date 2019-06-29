@@ -81,7 +81,7 @@ sudo -u $DBUSER psql "postgresql://$DBUSER:$DBPASSWORD@localhost/$DBNAME" -c "
     '0x214e79c85744CD2eBBc64dDc0047131496871bEe',
     true,
     100,
-    0,
+    5,
     'eth-uuid-optional-testnet',
     '5a89c14e-5385-4e4e-93c0-270c54ffd49e',
     true,
@@ -98,6 +98,5 @@ set -o history
 # You should keep your own copy of the following secrets. unset to ensure safety.
 # You might also need to clear bash history to avoid leaking secrets.
 unset DBPASSWORD
-unset KEY
 unset MNEMONIC
 

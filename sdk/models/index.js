@@ -738,7 +738,6 @@ const models = {
   },
 
   proccessSwaps(swaps, tokenInfo, callback) {
-
     models.getKey(tokenInfo.bnb_address, async (err, key) => {
       if(err || !key) {
         console.log(err)
@@ -799,7 +798,13 @@ const models = {
   },
 
   processSwap(swap, tokenInfo, key, seq, callback) {
-    bnb.transfer(key.mnemonic, swap.bnb_address, swap.amount, tokenInfo.unique_symbol, 'BNBridge Swap', seq, (err, swapResult) => {
+    let amount_n = parseFloat(swap.amount);
+    let minimum_amount_n = parseFloat(tokenInfo.minimum_swap_amount);
+    let fee_n = parseFloat(tokenInfo.fee_per_swap);
+    if (amount_n <= minimum_amount_n) {
+      return callback("Transferred amount less than minimum fee, swap skipped");
+    }
+    bnb.transfer(key.mnemonic, swap.bnb_address, (amount_n - fee_n).toFixed(2), tokenInfo.unique_symbol, 'DOS Swap', seq, (err, swapResult) => {
       if(err) {
         console.log(err)
 
