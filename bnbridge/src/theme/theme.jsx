@@ -30,7 +30,6 @@ const bnbridgeTheme =  {
       }
     },
     MuiGrid: {
-      paddingLeft: '10px',
     },
     MuiOutlinedInput: {
       input: {
@@ -56,10 +55,11 @@ const bnbridgeTheme =  {
         textTransform: "uppercase",
         fontWeight: 700,
       },
-      selected: {
-        color: colors.darkBlack
-      },
       root: {
+        "&:hover": {
+          backgroundColor: colors.darkBlack,
+          color: "#FFF"
+        },
         borderBottom: "1px solid #dee2e6!important"
       }
 

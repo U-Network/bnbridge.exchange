@@ -64,7 +64,6 @@ class Instructions extends Component {
 
   feesUpdated = () => {
     const fees = store.getStore('fees')
-    console.log(fees)
 
     let feesDisplay = fees.map((fee) => {
       let description = ""
@@ -112,7 +111,7 @@ class Instructions extends Component {
         justify="flex-start"
         alignItems="flex-end">
         <Grid item xs={12} align='left'>
-          <div style={{"margin-right":"50px"}} className={ classes.root } >
+          <div style={{"marginRight":"50px"}} className={ classes.root } >
             <Typography className={ classes.header }>DOS Token Bridge</Typography>
             <li><Typography className={ classes.action }>Swap DOS ERC20 to DOS BEP2 token</Typography></li>
           </div>
