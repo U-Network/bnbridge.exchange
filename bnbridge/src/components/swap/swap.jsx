@@ -331,7 +331,6 @@ class Swap extends Component {
 
     const {
       onIssue,
-      onCreateAccount,
       classes
     } = this.props
 
@@ -362,7 +361,7 @@ class Swap extends Component {
           }
           {
             !bnbBalances &&
-            <a className={ classes.createAccount } target="_blank"  href="https://www.binance.org/en/create">
+            <a className={ classes.createAccount } target="_blank" rel="noopener noreferrer" href="https://www.binance.org/en/create">
               Don't have an account? Create one
             </a>
           }

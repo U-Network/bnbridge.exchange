@@ -11,11 +11,11 @@ import {
   FEES_UPDATED
 } from '../../constants'
 
-import Issue from "../issue";
-import List from "../list";
+// import Issue from "../issue";
+// import List from "../list";
+// import CreateAccount from '../createAccount';
 import Swap from "../swap";
 import ErrorSnackbar from '../errorSnackbar';
-import CreateAccount from '../createAccount';
 
 import Store from "../../stores";
 const dispatcher = Store.dispatcher
@@ -97,8 +97,8 @@ class Controller extends Component {
     return (
       <div className={ classes.root }>
         { (!issueOpen && !createOpen) && this.renderTabs() }
-        { issueOpen && this.renderIssue() }
-        { createOpen && this.renderCreateAccount() }
+        {/* issueOpen && this.renderIssue() }
+        { createOpen && this.renderCreateAccount() */ }
         { errorOpen && this.renderError() }
       </div>
     )
@@ -118,6 +118,7 @@ class Controller extends Component {
     this.setState({ errorOpen: true, error: error })
   };
 
+/*
   renderIssue = () => {
     const {
       issueFee
@@ -133,24 +134,25 @@ class Controller extends Component {
       <CreateAccount onBack={ this.onCreateAccountBack }  showError={ this.showError } />
     )
   };
+*/
 
   renderTabs = () => {
     const { classes } = this.props;
     const {
       tabValue,
-      issueFee
+//      issueFee
     } = this.state;
 
     return (
       <React.Fragment>
         <Tabs value={tabValue} onChange={this.handleChange} className={ classes.tabs } variant="fullWidth" indicatorColor="primary" textColor="inherit">
-          {/* <Tab label="Swap" /> */}
+          { <Tab label="Swap" /> }
           {/* <Tab label="List" />
           <Tab label="Issue" /> */}
         </Tabs>
         {tabValue === 0 && <Swap onIssue={ this.onIssue } showError={ this.showError } onCreateAccount={ this.onCreateAccount } />}
-        {tabValue === 1 && <List onIssue={ this.onIssue } showError={ this.showError } />}
-        {tabValue === 2 && <Issue onBack={ this.onIssueBack }  issueFee={ issueFee } showError={ this.showError } />}
+        {/* tabValue === 1 && <List onIssue={ this.onIssue } showError={ this.showError } />}
+        {tabValue === 2 && <Issue onBack={ this.onIssueBack }  issueFee={ issueFee } showError={ this.showError } /> */}
       </React.Fragment>
     )
   };
