@@ -2,8 +2,8 @@
 
 sudo apt-get update
 sudo apt-get install npm
-npm -g install npm
-npm -g install n
+sudo npm -g install npm
+sudo npm -g install n
 n 10.8.0
 sudo apt-get install build-essential
 sudo apt-get install libudev-dev
