@@ -18,26 +18,22 @@ API used to interact with the CLI utility, Binance javascript SDK and Web3.js to
 
 
 ### Installation
-    git clone <repo>
-    cd ./sdk
-    npm install
-    
+    git clone https://github.com/DOSNetwork/bnbridge.exchange.git
+    ./install.sh  (Linux Environment)
+
     set (`DBUSER`, `DBNAME`, `DBPASSWORD`, `KEY`, `CLIPASSWORD`, `MNEMONIC`) to environment variables.
     run `bash <testnet/mainnet>-setup.sh` to instantiate the DB.
     Keep secrets (`MNEMONIC`, `KEY`, `DBPASSWORD`) offline and to yourself.
     unset environment variables, specifically secrets, and clear bash history.
-
-
     update ./config/index.js with
         - databse connection details (the same value as `DBUSER`, `DBNAME`, `DBPASSWORD`).
         - Binance connection details for mainnet/testnet.
         - Ethereum connection details for mainnet/testnet.
+    cd ./sdk
     node ./api.bnbridge.exchange.js
     or
     pm2 start api.bnbridge.exchange.js
 
     cd ../bnbridge
-
-    npm install
     vi ./src/config.js
     Modify config urls that the bnbridge.excahnge API is running at. (http://localhost:8000 by default)

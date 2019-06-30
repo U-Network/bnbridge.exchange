@@ -6,11 +6,6 @@ import {
   Tab
 } from '@material-ui/core';
 
-import {
-  GET_FEES,
-  FEES_UPDATED
-} from '../../constants'
-
 // import Issue from "../issue";
 // import List from "../list";
 // import CreateAccount from '../createAccount';
@@ -18,8 +13,6 @@ import Swap from "../swap";
 import ErrorSnackbar from '../errorSnackbar';
 
 import Store from "../../stores";
-const dispatcher = Store.dispatcher
-const emitter = Store.emitter
 const store = Store.store
 
 const styles = theme => ({
@@ -43,12 +36,9 @@ class Controller extends Component {
   };
 
   componentWillMount() {
-    emitter.on(FEES_UPDATED, this.feesUpdated);
-    dispatcher.dispatch({type: GET_FEES, content: {} })
   };
 
   componentWillUnmount() {
-    emitter.removeListener(FEES_UPDATED, this.feesUpdated);
   };
 
   feesUpdated = () => {
