@@ -393,7 +393,7 @@ class Swap extends Component {
             to
           </Typography>
           <Typography className={ classes.instructionBold }>
-            <div id='depositAddress'>{ethDepositAddress}</div>
+            <span id='depositAddress'>{ethDepositAddress}</span>
             <IconButton
               style={{
                 verticalAlign: "top",
@@ -446,12 +446,12 @@ class Swap extends Component {
     } = this.props
 
     const reducer = (accumulator, currentValue) => accumulator + parseFloat(currentValue.amount)-5;
-    const totalAmount = transactions.reduce(reducer, 0)
+    const totalAmount = (transactions.reduce(reducer, 0)).toFixed(2);
 
     return (
       <React.Fragment>
         <Typography className={ classes.instructions }>
-          You will receive another <b>{totalAmount} {selectedToken.symbol}-BEP2</b> in your address <b>{bnbAddress}</b>
+          You will receive another <b>{totalAmount} {selectedToken.symbol}-BEP2</b> in total in your address <b>{bnbAddress}</b>
         </Typography>
       </React.Fragment>
     )
@@ -469,9 +469,9 @@ class Swap extends Component {
 
     return transactions.map((transaction) => {
       return (
-        <React.Fragment>
+        <React.Fragment key={transaction.deposit_transaction_hash} >
           <Typography className={ classes.hash } onClick={ (event) => { this.onHashClick(transaction.deposit_transaction_hash); } }>
-            <b>{transaction.amount-5} (5 DOS as swap fee) {selectedToken.symbol}-ERC</b> from <b>{transaction.eth_address}</b>
+            <b>{(transaction.amount-5).toFixed(2)} (5 DOS as swap fee) {selectedToken.symbol}-ERC</b> from <b>{transaction.eth_address}</b>
           </Typography>
         </React.Fragment>)
     })
