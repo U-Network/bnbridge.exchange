@@ -676,14 +676,14 @@ const models = {
                 return swap.deposit_transaction_hash === ethTransaction.transactionHash
               })
 
-              if(thisTransaction.length > 0) {
-                return false
-              } else {
+              if (thisTransaction.length == 0 &&
+                  parseFloat(ethTransaction.amount) > parseFloat(tokenInfo.minimum_swap_amount)) {
                 return true
+              } else {
+                return false
               }
             })
 
-            // console.log(newTransactions)
             let accmulatedBalance = newTransactions.map(ethTransaction => ethTransaction.amount).reduce((prev, curr) => prev + curr, 0);
 
             console.log(accmulatedBalance)
@@ -749,51 +749,34 @@ const models = {
     const privateFrom = BnbApiClient.crypto.getPrivateKeyFromMnemonic(key.mnemonic);
     const addressFrom = BnbApiClient.crypto.getAddressFromPrivateKey(privateFrom);
     const sequenceURL = `${config.api}api/v1/account/${addressFrom}/sequence`;
-    
-    let seq = (await httpClient.get(sequenceURL)).data.sequence
-    
-    async.map(swaps, (swap, callbackInner) => {
-      models.processSwap(swap, tokenInfo, key, seq++, callbackInner)
-    }, (err, swapResults) => {
-      if(err) {
-        return callback(err)
+    let seq = (await httpClient.get(sequenceURL)).data.sequence;
+
+    let swap_cbs = [];
+    for (let i = 0; i < swaps.length; i++) {
+      swap_cbs.push(function (callback) {
+        models.processSwap(swaps[i], tokenInfo, key, seq + i, callback);
+      });
+    }
+    async.series(swap_cbs, (err, results) => {
+      if (err) {
+        return callback(err);
+      } else {
+        callback(null, results);
       }
-      callback(err, swapResults)
-    })
+    });
 
-    // let res = []
-    
-    // let sequence = Promise.resolve();
+    /*
+    (async () => {
+      for (let i = 0; i < swaps.length; i++) {
+        await models.processSwap(swaps[i], tokenInfo, key, seq + i, (err, swapResults) => {
+          if(err) {
+            return callback(err)
+          }
+          callback(err, swapResults)
+        });
+      }
+    })();*/
 
-    // swaps.forEach((swap) => {
-    //   sequence = sequence.then(_ => {
-    //     return models.processSwap(swap, tokenInfo, key, seq++, (err, swapResult) => {
-    //       // console.log(swapResult)
-    //       if(err) {
-    //          console.log(err)
-    //       }
-    //       return res.push(swapResult)
-    //     })
-    //   })
-    // })
-
-    // async function queue(arr) {
-    //   var sequence = Promise.resolve();
-
-    //  return arr.forEach(item => {
-    //     sequence = sequence.then(_ => {
-    //       return models.processSwap(item, tokenInfo, key, seq++, (err, swapResult) => {
-    //         res.push(swapResult)
-    //         return res
-    //       })
-    //     })
-    //   })
-    // }
-
-    // queue(swaps).then(_ => {
-    //   callback(err, res)
-    // })
-    
     })
   },
 
