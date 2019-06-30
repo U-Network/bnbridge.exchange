@@ -32,8 +32,6 @@ fi
 
 set +o history
 
-# sudo apt-get update
-# sudo apt-get install postgresql postgresql-contrib
 
 sudo adduser $DBUSER
 sudo -u postgres createuser --superuser $DBUSER
