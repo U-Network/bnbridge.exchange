@@ -52,7 +52,7 @@ const styles = theme => ({
 class Instructions extends Component {
   state = {
     fees: [],
-    dos_erc20: "https://etherscan.io/token/0x70861e862e1ac0c96f853c8231826e469ead37b1",
+    dos_erc20: "https://etherscan.io/address/0x70861e862e1ac0c96f853c8231826e469ead37b1",
     dos_bep2: "https://explorer.binance.org/asset/DOS-120"
   };
 
