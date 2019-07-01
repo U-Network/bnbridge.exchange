@@ -677,7 +677,7 @@ const models = {
               })
 
               if (thisTransaction.length == 0 &&
-                  parseFloat(ethTransaction.amount) > parseFloat(tokenInfo.minimum_swap_amount)) {
+                  parseFloat(ethTransaction.amount) >= parseFloat(tokenInfo.minimum_swap_amount)) {
                 return true
               } else {
                 return false
