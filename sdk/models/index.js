@@ -784,7 +784,7 @@ const models = {
     let amount_n = parseFloat(swap.amount);
     let minimum_amount_n = parseFloat(tokenInfo.minimum_swap_amount);
     let fee_n = parseFloat(tokenInfo.fee_per_swap);
-    if (amount_n <= minimum_amount_n) {
+    if (amount_n < minimum_amount_n) {
       return callback("Transferred amount less than minimum fee, swap skipped");
     }
     bnb.transfer(key.mnemonic, swap.bnb_address, (amount_n - fee_n).toFixed(2), tokenInfo.unique_symbol, 'DOS Swap', seq, (err, swapResult) => {
