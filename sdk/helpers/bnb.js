@@ -6,6 +6,8 @@ const os = require('os');
 const pty = require('node-pty');
 const shell = os.platform() === 'win32' ? 'powershell.exe' : 'bash';
 const httpClient = axios.create({ baseURL: config.api });
+const bnbClient = new BnbApiClient(config.api);
+bnbClient.chooseNetwork(config.network);
 
 const bnb = {
   spawnProcess() {
@@ -31,7 +33,7 @@ const bnb = {
   },
 
   validateAddress(address) {
-    const addressValid = BnbApiClient.crypto.checkAddress(address);
+    const addressValid = bnbClient.checkAddress(address);
     return addressValid
   },
 
@@ -149,12 +151,8 @@ const bnb = {
 
   transfer(mnemonic, publicTo, amount, asset, message, sequence, callback) {
     mnemonic = mnemonic.replace(/(\r\n|\n|\r)/gm, "");
-
     const privateFrom = BnbApiClient.crypto.getPrivateKeyFromMnemonic(mnemonic);
-    const addressFrom = BnbApiClient.crypto.getAddressFromPrivateKey(privateFrom);
-
-    const bnbClient = new BnbApiClient(config.api);
-
+    const addressFrom = BnbApiClient.crypto.getAddressFromPrivateKey(privateFrom, config.prefix);
     bnbClient.setPrivateKey(privateFrom).then(_ => {
       bnbClient.initChain().then(_ => {
         // const sequence = res.data.sequence || 0
@@ -173,7 +171,6 @@ const bnb = {
         callback(error)
       });
     })
-
   },
 
   freeze(amount, symbol, keyName, callback) {
@@ -203,7 +200,6 @@ const bnb = {
   },
 
   getBalance(address, callback) {
-    const bnbClient = new BnbApiClient(config.api);
     bnbClient.getBalance(address).then((balances) => { callback(null, balances ) });
   },
 
@@ -367,22 +363,17 @@ const bnb = {
 
   },
 
-  createAccountWithKeystore() {
+  createAccountWithKeystore(password) {
     bncClient.createAccountWithKeystore(password)
   },
 
-  createAccountWithMneomnic(password) {
-    const bnbClient = new BnbApiClient(config.api);
-    bnbClient.chooseNetwork(config.network)
-
+  createAccountWithMneomnic() {
     let result = bnbClient.createAccountWithMneomnic()
-
     return result
   },
 
   generateKeyStore(privateKey, password) {
     const result = BnbApiClient.crypto.generateKeyStore(privateKey, password);
-
     return result
   }
 

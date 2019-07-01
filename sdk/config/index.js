@@ -1,23 +1,23 @@
 const config = {
   host: "localhost",
-  database: "<DB name>",
-  user: "<Replace with your DB User>",
-  password: "<Replace with your DB password>",
+  database: "swapmainnet",
+  user: "dosnetwork",
+  password: "dosnetwork0!",
 
   //Binance
-  api: "https://testnet-dex.binance.org/",
+  api: "https://dex.binance.org/",
   filePath: "../cli/node-binary/",
-  fileName: "tbnbcli",
-  chainID: "Binance-Chain-Nile",
-  nodeData: "data-seed-pre-2-s1.binance.org:80",
-  nodeHTTPS: "https://seed-pre-s3.binance.org:443",
-  keyPrepend: "TEST_",
-  list_proposal_deposit: "200000000000",
-  prefix: 'tbnb',
-  network: 'testnet',
+  fileName: "bnbcli",
+  chainID: "Binance-Chain-Tigris",
+  nodeData: "https://dataseed5.defibit.io:443",
+  nodeHTTPS: "https://dataseed5.defibit.io:443",
+  keyPrepend: "LIVE_",
+  list_proposal_deposit: "100000000000",
+  prefix: 'bnb',
+  network: 'mainnet',
 
   //Ethereum
-  provider: 'https://rinkeby.infura.io/v3/1b8fe172d663460bb5eb6f79552efebd',
+  provider: 'https://mainnet.infura.io/v3/1b8fe172d663460bb5eb6f79552efebd',
 
 
   erc20ABI: [

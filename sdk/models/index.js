@@ -747,7 +747,7 @@ const models = {
       }
 
     const privateFrom = BnbApiClient.crypto.getPrivateKeyFromMnemonic(key.mnemonic);
-    const addressFrom = BnbApiClient.crypto.getAddressFromPrivateKey(privateFrom);
+    const addressFrom = BnbApiClient.crypto.getAddressFromPrivateKey(privateFrom, config.prefix);
     const sequenceURL = `${config.api}api/v1/account/${addressFrom}/sequence`;
     let seq = (await httpClient.get(sequenceURL)).data.sequence;
 
