@@ -1,8 +1,8 @@
 const config = {
   host: "localhost",
-  database: "swapmainnet",
-  user: "dosnetwork",
-  password: "dosnetwork0!",
+  database: "<DB name>",
+  user: "<Replace with your DB User>",
+  password: "<Replace with your DB password>",
 
   //Binance
   api: "https://dex.binance.org/",
