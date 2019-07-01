@@ -51,7 +51,9 @@ const styles = theme => ({
 
 class Instructions extends Component {
   state = {
-    fees: []
+    fees: [],
+    dos_erc20: "https://etherscan.io/token/0x70861e862e1ac0c96f853c8231826e469ead37b1",
+    dos_bep2: "https://explorer.binance.org/asset/DOS-120"
   };
 
   componentWillMount() {
@@ -113,7 +115,7 @@ class Instructions extends Component {
         <Grid item xs={12} align='left'>
           <div style={{"marginRight":"50px"}} className={ classes.root } >
             <Typography className={ classes.header }>DOS Token Bridge</Typography>
-            <li><Typography className={ classes.action }>Swap DOS ERC20 to DOS BEP2 token</Typography></li>
+            <li><Typography className={ classes.action }> Swap <a href={this.state.dos_erc20} target="_blank">DOS ERC20</a> to <a href={this.state.dos_bep2} target="_blank">DOS BEP2</a> token</Typography></li>
           </div>
           <div className={ classes.root } >
             <Typography className={ classes.header }>Swap details:</Typography>
