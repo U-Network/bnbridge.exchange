@@ -29,6 +29,8 @@ API used to interact with the CLI utility, Binance javascript SDK and Web3.js to
         - databse connection details (the same value as `DBUSER`, `DBNAME`, `DBPASSWORD`).
         - Binance connection details for mainnet/testnet.
         - Ethereum connection details for mainnet/testnet.
+    Config https keys and certifications for production.
+
     cd ./sdk
     node ./api.bnbridge.exchange.js
     or
