@@ -53,7 +53,8 @@ class Instructions extends Component {
   state = {
     fees: [],
     dos_erc20: "https://etherscan.io/address/0x70861e862e1ac0c96f853c8231826e469ead37b1",
-    dos_bep2: "https://explorer.binance.org/asset/DOS-120"
+    dos_bep2: "https://explorer.binance.org/asset/DOS-120",
+    instruction: "https://medium.com/dos-network/instructions-on-how-to-swap-erc20-dos-to-bep2-dos-c032bdb7cc7f",
   };
 
   componentWillMount() {
@@ -115,11 +116,12 @@ class Instructions extends Component {
         <Grid item xs={12} align='left'>
           <div style={{"marginRight":"50px"}} className={ classes.root } >
             <Typography className={ classes.header }>DOS Token Bridge</Typography>
-            <li><Typography className={ classes.action }> Swap <a href={this.state.dos_erc20} target="_blank">DOS ERC20</a> to <a href={this.state.dos_bep2} target="_blank">DOS BEP2</a> token</Typography></li>
+            <li><Typography className={ classes.action }> Swap <a href={this.state.dos_erc20} target="_blank" rel="noopener noreferrer">DOS ERC20</a> to <a href={this.state.dos_bep2} target="_blank" rel="noopener noreferrer">DOS BEP2</a> token</Typography></li>
           </div>
           <div className={ classes.root } >
             <Typography className={ classes.header }>Swap details:</Typography>
               <Grid item xs={12} align='left'>
+                <li><Typography className={ classes.action }>Instruction: <a href={this.state.instruction} target="_blank" rel="noopener noreferrer">Read Me</a></Typography></li>
                 <li><Typography className={ classes.action }>Minimum swap amount: 100 DOS</Typography></li>
                 <li><Typography className={ classes.action }>Swap fee: 5 DOS</Typography></li>
                 {/* { this.renderFees() } */}
