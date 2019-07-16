@@ -21,6 +21,7 @@ const bnbridgeTheme =  {
       marginBottom: '.5rem'
     }
   },
+
   type: 'light',
   overrides: {
     MuiInputBase: {

@@ -17,7 +17,10 @@ const store = Store.store
 
 const styles = theme => ({
   root: {
-    minHeight: '480px'
+    minHeight: '480px',
+    [theme.breakpoints.down('md')]: {
+      margin: '5%'
+    }
   },
   tabs: {
     marginTop: '24px',

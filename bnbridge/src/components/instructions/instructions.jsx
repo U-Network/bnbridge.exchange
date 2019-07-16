@@ -18,7 +18,10 @@ const store = Store.store
 const styles = theme => ({
   root: {
     width: '400px',
-    marginBottom: '24px'
+    marginBottom: '24px',
+    [theme.breakpoints.down('sm')]: {
+      width: '300px'
+    }
   },
   header: {
     fontSize: '2.4rem',
@@ -26,12 +29,18 @@ const styles = theme => ({
     marginBottom: '24px',
     fontWeight: 400,
     fontFamily: ['Source Sans Pro', 'sans-serif'].join(","),
+    [theme.breakpoints.down('md')]: {
+      fontSize: '1.4rem'
+    }
   },
   action: {
     fontSize: '1rem',
     color: colors.lightBlack,
     display: 'inline-block',
-    marginTop: "0.5rem"
+    marginTop: "0.5rem",
+    [theme.breakpoints.down('md')]: {
+      fontSize: '0.9rem'
+    }
   },
   actionRed: {
     fontSize: '1rem',
@@ -114,7 +123,7 @@ class Instructions extends Component {
         justify="flex-start"
         alignItems="flex-end">
         <Grid item xs={12} align='left'>
-          <div style={{"marginRight":"50px"}} className={ classes.root } >
+          <div className={ classes.root } >
             <Typography className={ classes.header }>DOS Token Bridge</Typography>
             <li><Typography className={ classes.action }> Swap <a href={this.state.dos_erc20} target="_blank" rel="noopener noreferrer">DOS ERC20</a> to <a href={this.state.dos_bep2} target="_blank" rel="noopener noreferrer">DOS BEP2</a> token</Typography></li>
           </div>
