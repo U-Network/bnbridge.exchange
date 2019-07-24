@@ -61,9 +61,12 @@ const styles = theme => ({
 class Instructions extends Component {
   state = {
     fees: [],
-    dos_erc20: "https://etherscan.io/address/0x70861e862e1ac0c96f853c8231826e469ead37b1",
-    dos_bep2: "https://explorer.binance.org/asset/DOS-120",
-    instruction: "https://medium.com/dos-network/instructions-on-how-to-swap-erc20-dos-to-bep2-dos-c032bdb7cc7f",
+    // dos_erc20: "https://etherscan.io/address/0x70861e862e1ac0c96f853c8231826e469ead37b1",
+    // dos_bep2: "https://explorer.binance.org/asset/DOS-120",
+    // instruction: "https://medium.com/dos-network/instructions-on-how-to-swap-erc20-dos-to-bep2-dos-c032bdb7cc7f",
+    dos_erc20: "https://etherscan.io/token/0x3543638ed4a9006e4840b105944271bcea15605d",
+    dos_bep2: "https://explorer.binance.org/asset/UUU-35C",
+    instruction: "https://medium.com/dos-network/instructions-on-how-to-swap-erc20-dos-to-bep2-dos-c032bdb7cc7f"
   };
 
   componentWillMount() {
@@ -130,7 +133,7 @@ class Instructions extends Component {
           <div className={ classes.root } >
             <Typography className={ classes.header }>Swap details:</Typography>
               <Grid item xs={12} align='left'>
-                <li><Typography className={ classes.action }>Instruction: <a href={this.state.instruction} target="_blank" rel="noopener noreferrer">Read Me</a></Typography></li>
+                {/* <li><Typography className={ classes.action }>Instruction: <a href={this.state.instruction} target="_blank" rel="noopener noreferrer">Read Me</a></Typography></li> */}
                 <li><Typography className={ classes.action }>Minimum swap amount: 100 UUU</Typography></li>
                 <li><Typography className={ classes.action }>Swap fee: 5 UUU</Typography></li>
                 {/* { this.renderFees() } */}
