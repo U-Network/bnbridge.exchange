@@ -124,15 +124,15 @@ class Instructions extends Component {
         alignItems="flex-end">
         <Grid item xs={12} align='left'>
           <div className={ classes.root } >
-            <Typography className={ classes.header }>DOS Token Bridge</Typography>
-            <li><Typography className={ classes.action }> Swap <a href={this.state.dos_erc20} target="_blank" rel="noopener noreferrer">DOS ERC20</a> to <a href={this.state.dos_bep2} target="_blank" rel="noopener noreferrer">DOS BEP2</a> token</Typography></li>
+            <Typography className={ classes.header }>UUU Token Bridge</Typography>
+            <li><Typography className={ classes.action }> Swap <a href={this.state.dos_erc20} target="_blank" rel="noopener noreferrer">UUU ERC20</a> to <a href={this.state.dos_bep2} target="_blank" rel="noopener noreferrer">UUU BEP2</a> token</Typography></li>
           </div>
           <div className={ classes.root } >
             <Typography className={ classes.header }>Swap details:</Typography>
               <Grid item xs={12} align='left'>
                 <li><Typography className={ classes.action }>Instruction: <a href={this.state.instruction} target="_blank" rel="noopener noreferrer">Read Me</a></Typography></li>
-                <li><Typography className={ classes.action }>Minimum swap amount: 100 DOS</Typography></li>
-                <li><Typography className={ classes.action }>Swap fee: 5 DOS</Typography></li>
+                <li><Typography className={ classes.action }>Minimum swap amount: 100 UUU</Typography></li>
+                <li><Typography className={ classes.action }>Swap fee: 5 UUU</Typography></li>
                 {/* { this.renderFees() } */}
             </Grid>
           </div>
