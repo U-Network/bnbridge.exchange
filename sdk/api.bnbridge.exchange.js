@@ -120,13 +120,14 @@ app.use(function(err, req, res) {
 var options = {}
 https.globalAgent.maxSockets = 50
 app.set('port', 8000)
-// var server = null
-// server = require('http').Server(app)
-var options = {
-  key:  fs.readFileSync(__dirname + '/.privkey1.pem'),
-  cert: fs.readFileSync(__dirname + '/.cert1.pem'),
-}
-var server = https.createServer(options, app)
+// change http to https when deploy prod.
+var server = null
+server = require('http').Server(app)
+// var options = {
+//   key:  fs.readFileSync(__dirname + '/.privkey1.pem'),
+//   cert: fs.readFileSync(__dirname + '/.cert1.pem'),
+// }
+// var server = https.createServer(options, app)
 server.listen(app.get('port'), function () {
   console.log('api.bnbridge.exchange',server.address().port)
   module.exports = server
