@@ -58,7 +58,7 @@ echo "address = $address"
 # Polulate bnb_accounts and tokens table
 sudo -u $DBUSER psql "postgresql://$DBUSER:$DBPASSWORD@localhost/$DBNAME" -c "
   INSERT INTO bnb_accounts VALUES (
-    'ca32432b-e5a9-4bae-acb0-3f3492c69754',
+    'fe0895c1-24f9-43ad-97e6-15072edaaa52',
     '$pubKey',
     '$encr_seed',
     '$address',
@@ -69,26 +69,28 @@ sudo -u $DBUSER psql "postgresql://$DBUSER:$DBPASSWORD@localhost/$DBNAME" -c "
   );
 "
 
+
 sudo -u $DBUSER psql "postgresql://$DBUSER:$DBPASSWORD@localhost/$DBNAME" -c "
   INSERT INTO tokens VALUES (
-    '3100c73f-2e54-4b19-ade5-7d58805fcac6',
-    'DOS NETWORK BEP2',
-    'DOS',
-    'DOS-120',
-    1000000000,
-    '0x70861e862E1Ac0C96f853C8231826e469eAd37B1',
+    'b690cd6f-d18e-4f7c-bc3f-08ff56aaf91d',
+    'U-NETWORK BEP2',
+    'UUU',
+    'UUU-35C',
+    10000000000,
+    '0x3543638ed4a9006e4840b105944271bcea15605d',
+    false,
+    1000,
+    50,
+    'eth-uuid-optional-testnet',
+    'fe0895c1-24f9-43ad-97e6-15072edaaa52',
     true,
-    100,
-    5,
-    'eth-uuid-optional-mainnet',
-    'ca32432b-e5a9-4bae-acb0-3f3492c69754',
     true,
-    true,
-    'listing-proposal-uuid-mainnet',
+    'listing-proposal-uuid-testnet',
     true,
     now()
   );
 "
+
 
 
 set -o history

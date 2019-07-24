@@ -1,24 +1,25 @@
 const config = {
   host: "localhost",
-  database: "unetwork",
-  user: "unetwork",
-  password: "test",
+  // should be changed.
+  database: "bnbridgelive", //live
+  user: "postgres",
+  password: "",
 
-
-  api: "https://testnet-dex.binance.org/",
+  //Binance
+  api: "https://dex.binance.org/", //live
   filePath: "../cli/node-binary/",
-  fileName: "tbnbcli",
-  chainID: "Binance-Chain-Nile",
-  nodeData: "data-seed-pre-2-s1.binance.org:80",
-  nodeHTTPS: "https://seed-pre-s3.binance.org:443",
-  // 没有必要
-  keyPrepend: "dd3093fc0e97c9417931227e907cffc4e5cd5443dfcaccddad1623f53b6c74aa",
-  list_proposal_deposit: "200000000000",
-  prefix: 'tbnb',
-  network: 'testnet',
-  //Ethereum testnet
-  provider: 'https://rinkeby.infura.io/v3/1b8fe172d663460bb5eb6f79552efebd',
+  fileName: "bnbcli", //live
+  chainID: "Binance-Chain-Tigris", //live
+  nodeData: "https://dataseed5.defibit.io:443", //live
+  nodeHTTPS: "https://dataseed5.defibit.io:443", //live
+  keyPrepend: "LIVE_",
+  list_proposal_deposit: "100000000000",
+  prefix: 'bnb',
+  network: 'mainnet',
 
+  //Ethereum
+  provider: 'https://mainnet.infura.io/v3/1b8fe172d663460bb5eb6f79552efebd', //live
+  
 erc20ABI: [
         {
             "constant": true,

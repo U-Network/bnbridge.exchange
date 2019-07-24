@@ -1,5 +1,7 @@
 const config = {
   host: "localhost",
+
+  // should be changed.
   database: "bnbridge_live", //live
   user: "postgres",
   password: "123123123",
@@ -17,7 +19,7 @@ const config = {
   network: 'mainnet',
 
   //Ethereum
-  provider: 'https://mainnet.infura.io/v3/1b8fe172d663460bb5eb6f79552efebd, //live
+  provider: 'https://mainnet.infura.io/v3/1b8fe172d663460bb5eb6f79552efebd', //live
 
   erc20ABI: [
   	{
