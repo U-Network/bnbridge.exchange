@@ -445,7 +445,7 @@ class Swap extends Component {
       classes
     } = this.props
 
-    const reducer = (accumulator, currentValue) => accumulator + parseFloat(currentValue.amount)-5;
+    const reducer = (accumulator, currentValue) => accumulator + parseFloat(currentValue.amount)-50;
     const totalAmount = (transactions.reduce(reducer, 0)).toFixed(2);
 
     return (
