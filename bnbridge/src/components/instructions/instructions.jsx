@@ -134,8 +134,8 @@ class Instructions extends Component {
             <Typography className={ classes.header }>Swap details:</Typography>
               <Grid item xs={12} align='left'>
                 {/* <li><Typography className={ classes.action }>Instruction: <a href={this.state.instruction} target="_blank" rel="noopener noreferrer">Read Me</a></Typography></li> */}
-                <li><Typography className={ classes.action }>Minimum swap amount: 100 UUU</Typography></li>
-                <li><Typography className={ classes.action }>Swap fee: 5 UUU</Typography></li>
+                <li><Typography className={ classes.action }>Minimum swap amount: 1000 UUU</Typography></li>
+                <li><Typography className={ classes.action }>Swap fee: 50 UUU</Typography></li>
                 {/* { this.renderFees() } */}
             </Grid>
           </div>
