@@ -445,7 +445,7 @@ class Swap extends Component {
       classes
     } = this.props
 
-    const reducer = (accumulator, currentValue) => accumulator + parseFloat(currentValue.amount)-50;
+    const reducer = (accumulator, currentValue) => accumulator + parseFloat(currentValue.amount) - 50;
     const totalAmount = (transactions.reduce(reducer, 0)).toFixed(2);
 
     return (
@@ -471,7 +471,7 @@ class Swap extends Component {
       return (
         <React.Fragment key={transaction.deposit_transaction_hash} >
           <Typography className={ classes.hash } onClick={ (event) => { this.onHashClick(transaction.deposit_transaction_hash); } }>
-            <b>{(transaction.amount-5).toFixed(2)} (50 UUU as swap fee) {selectedToken.symbol}-ERC</b> from <b>{transaction.eth_address}</b>
+            <b>{(transaction.amount-50).toFixed(2)} (50 UUU as swap fee) {selectedToken.symbol}-ERC</b> from <b>{transaction.eth_address}</b>
           </Typography>
         </React.Fragment>)
     })
