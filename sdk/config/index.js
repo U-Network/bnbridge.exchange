@@ -1,8 +1,8 @@
 const config = {
   host: "localhost",
   // should be changed.
-  database: "bnbridgelive", //live
-  user: "postgres",
+  database: "", //live
+  user: "",
   password: "",
 
   //Binance
